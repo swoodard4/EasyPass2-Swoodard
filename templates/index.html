@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>EasyPass Encrypt</title>
+    <style>
+      form {
+        margin: 0 auto;
+        max-width: 400px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      input {
+        font-size: 28px;
+        margin-top: 20px;
+      }
+    </style>
+	</head>
+	<body>
+		<p>Welcome, this is an API, it does not actually service its own website... Sorry.</p>
+    <form>
+    <input type="password" name="password" id="">
+    </form>
+    <button>
+    <p>result:</p>
+    <p class="Encryption"></p>
+    <script>
+      async function encrypt(information){
+        const data = { password: information };
+        try{
+          const result = await fetch('/api/encrypt', {
+            method: 'POST', // or 'PUT'
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+          })
+          const new_data = await result.json()
+          console.log("Success:", new_data)
+          return new_data;
+        }
+        catch(error){
+          console.error('Error:', error);
+        }
+        
+      }
+      
+      encrypt("example").then(it => document.querySelectorAll(".Encryption")[0].innerText = BigInt(it["salt"]))
+      
+
+    </script>
+	</body>
+</html>
